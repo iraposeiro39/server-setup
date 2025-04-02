@@ -4,6 +4,10 @@
 #
 # This is a script that automatically sets-up some services that I
 # need for a course I'm in :p.
+#
+# FALTA IMPLEMENTAR:
+# - Only sudo
+# - O resto das cenas do menu :p
 
 # Confirm user choices
 function yn {
@@ -56,7 +60,7 @@ function hostname_setup {
     fi
     echo "What hostname do you wish to use?"
     read -p "> " NAME
-    # sudo echo $NAME > /etc/hostname
+    # echo $NAME > /etc/hostname
     echo "Contents of '/etc/hostname':"
     cat /etc/hostname
     echo "Done! For any changes to take effect reboot or log out of your current user."
