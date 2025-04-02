@@ -125,8 +125,29 @@ function ip_static {
 }
 
 function pbis_setup {
-    echo "To be implemented..."
-    read -p "Press any key to continue..."
+    echo "WARNING! You should change your hostname ($HOST) before you setup pbis, do you wish to continue?"
+    yn
+    if [ $? -eq 1 ]; then
+        return
+    fi
+    read -p "What domain do you want to configure?: " DOMAIN
+    echo "Testing connection..."
+    if ping -c 4 $DOMAIN &> /dev/null; then
+        echo "Ping Successfull!"
+    else
+        echo "Ping Unsuccessfull! Check if both machines have connection with each other and then try again."
+        read -p "Press any key To continue..."
+        return
+    echo "Installing ntpdate..."
+    If apt install -y ntpdate; then
+        echo "Installation successfull"
+    else
+        echo "Installation Failed, make sure you have run apt update && apt upgrade -y and an internet connection."
+        read -p "Press any key To continue..."
+        return
+    fi
+
+
 }
 
 function dhcp_setup {
