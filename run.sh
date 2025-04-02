@@ -6,7 +6,6 @@
 # need for a course I'm in :p.
 #
 # FALTA IMPLEMENTAR:
-# - Only sudo
 # - O resto das cenas do menu :p
 
 # Confirm user choices
@@ -90,12 +89,12 @@ function ip_setup {
 }
 
 function ip_dhcp {
-    echo -e "network:\n  ethernets:\n    $INT:\n      dhcp4: true\n  version: 2" > 00-installer-config.yaml
+    # echo -e "network:\n  ethernets:\n    $INT:\n      dhcp4: true\n  version: 2" > /etc/netplan/00-installer-config.yaml
     echo "DHCP has been activated in the interface $INT! Applying Settings..."
-    echo "Contents of '/etc/netplan/00-installer-config.yaml':"
-    cat 00-installer-config.yaml
     # netplan apply
-    echo "Done, not really, it's just a test :p"
+    echo "Contents of '/etc/netplan/00-installer-config.yaml':"
+    # cat /etc/netplan/00-installer-config.yaml
+    echo "Done!"
     read -p "Press any key To continue..."
     return
 }
@@ -115,12 +114,12 @@ function ip_static {
     if [ $? -eq 1 ]; then
         return
     fi
-    echo -e "network:\n  ethernets:\n    $INT:\n      addresses:\n      - $IP\n      gateway4: $DEF\n      nameservers:\n       addresses:\n       - $DNS1\n       - $DNS2\n       search: []\n  version: 2" > 00-installer-config.yaml
+    # echo -e "network:\n  ethernets:\n    $INT:\n      addresses:\n      - $IP\n      gateway4: $DEF\n      nameservers:\n       addresses:\n       - $DNS1\n       - $DNS2\n       search: []\n  version: 2" > /etc/netplan/00-installer-config.yaml
     echo "The IP Address has been altered in the interface $INT! Applying Settings..."
-    echo "Contents of '/etc/netplan/00-installer-config.yaml':"
-    cat 00-installer-config.yaml
     # netplan apply
-    echo "Done, not really, it's just a test :p"
+    echo "Contents of '/etc/netplan/00-installer-config.yaml':"
+    # cat /etc/netplan/00-installer-config.yaml
+    echo "Done!"
     read -p "Press any key To continue..."
     return
 }
@@ -161,6 +160,11 @@ function auto {
 }
 
 function main {
+    # Uncomment to only allow root to run this program.
+    # if [ "$EUID" -ne 0 ]
+    #   then echo "This program must be run as root."
+    #   exit
+    # fi
     clear
     echo "=========> Server Setup <========="
     echo "> What do you want to do?"
